@@ -203,8 +203,6 @@
       var count = 0;
       var row;
 
-      console.log('numRows: ' + numRows + '; diagI: ' + diagIndex + '; overI: ' + overIndex);
-
       if ( diagIndex >= numRows ) {
         for ( var j = numRows - 1; j > 0; j-- ){
           row = this.get(overIndex);
@@ -217,7 +215,6 @@
           }
         }
       } else {
-        console.log('totally IN');
         for ( var i = 0; i < numRows; i++ ){
           row = this.get(i);
 
@@ -237,8 +234,6 @@
     // test if any minor diagonals on this board contain conflicts
     hasAnyMinorDiagonalConflicts: function() {
       var size = ( (this.get('n') - 1) * 2 ) + 1;
-
-      console.log('extra size', size);
 
       for ( var i = 0; i < size; i++ ){
         if ( this.hasMinorDiagonalConflictAt(i) ){
