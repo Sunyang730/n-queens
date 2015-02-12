@@ -145,14 +145,19 @@
       var diagIndex = majorDiagonalColumnIndexAtFirstRow;
       var numRows = this.get('n');
       var count = 0;
+      var absIndex = Math.abs(diagIndex)
 
       if ( diagIndex < 0 ) {
         for ( var i = 0; i < numRows; i++ ){
-          var row = this.get( Math.abs(diagIndex) );
+          var row = this.get(absIndex);
 
           count += row[i];
           diagIndex--;
-          numRows--;
+
+          if ( absIndex === numRows ) {
+            break;
+          }
+
         }
       }
 
