@@ -224,7 +224,7 @@
           count += row[diagIndex];
           diagIndex--;
 
-          if ( diagIndex === 0 ){
+          if ( diagIndex < 0 ){
             break;
           }
         }
