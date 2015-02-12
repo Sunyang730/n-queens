@@ -125,10 +125,6 @@
     hasAnyColConflicts: function() {
       var numCols = this.get('n');
 
-
-      //get the number of column of the board
-      //iterate over each column, call hasColCOnflictAt
-      //if call = true? return true:false
       for( var i = 0; i < numCols; i++ ){
         if( this.hasColConflictAt(i) ){
           return true;
@@ -145,12 +141,59 @@
     //
     // test if a specific major diagonal on this board contains a conflict
     hasMajorDiagonalConflictAt: function(majorDiagonalColumnIndexAtFirstRow) {
-      return false; // fixme
+      // Good practice to rename crazy long parameter name?? :-)
+      var diagIndex = majorDiagonalColumnIndexAtFirstRow;
+      var numRows = this.get('n');
+      var count = 0;
+
+      if ( diagIndex < 0 ) {
+        for ( var i = 0; i < numRows; i++ ){
+          var row = this.get( Math.abs(diagIndex) );
+
+          count += row[i];
+          diagIndex--;
+          numRows--;
+        }
+      }
+
+      if ( diagIndex >= 0 ) {
+        for ( var i = 0; i < numRows; i++ ){
+          var row = this.get(i);
+
+          count += row[diagIndex];
+          diagIndex++;
+
+          if ( diagIndex === numRows ) {
+            break;
+          }
+        }
+      }
+      return count > 1;
     },
 
     // test if any major diagonals on this board contain conflicts
     hasAnyMajorDiagonalConflicts: function() {
-      return false; // fixme
+      // for the board that we get passed in
+      // make a new, larger board
+        // board.rows() gets us an array of arrays
+
+        // * we will make a new array of arrays with
+        //   the size - 1 (so 2 if size of board is 3)
+        //   number of new columns that PRECEDE the
+        //   actual board's columns
+        //
+        // * we have to populate the new columns with
+        //   values of 0, so they don't affect our
+        //   result
+
+      // check the new board for conflicts with previous fn above
+        // * can pass in our board array to our previous fn as
+        //   second argument? (and have that fn add the cols)
+        //
+        // * can pass in just the index, as above, but include
+        //   negative indices.
+
+      // return results of that check, as if it was for original board
     },
 
 
