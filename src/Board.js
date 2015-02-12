@@ -145,16 +145,17 @@
       var diagIndex = majorDiagonalColumnIndexAtFirstRow;
       var numRows = this.get('n');
       var count = 0;
-      var absIndex = Math.abs(diagIndex)
+      var absIndex = Math.abs(diagIndex);
+      var row;
 
       if ( diagIndex < 0 ) {
-        for ( var i = 0; i < numRows; i++ ){
-          var row = this.get(absIndex);
+        for ( var j = 0; j < numRows; j++ ){
+          row = this.get(absIndex);
 
-          count += row[i];
-          diagIndex--;
+          count += row[j];
+          absIndex++;
 
-          if ( absIndex === numRows ) {
+          if ( absIndex === numRows ){
             break;
           }
 
@@ -163,12 +164,12 @@
 
       if ( diagIndex >= 0 ) {
         for ( var i = 0; i < numRows; i++ ){
-          var row = this.get(i);
+          row = this.get(i);
 
           count += row[diagIndex];
           diagIndex++;
 
-          if ( diagIndex === numRows ) {
+          if ( diagIndex === numRows ){
             break;
           }
         }
@@ -178,27 +179,20 @@
 
     // test if any major diagonals on this board contain conflicts
     hasAnyMajorDiagonalConflicts: function() {
-      // for the board that we get passed in
-      // make a new, larger board
-        // board.rows() gets us an array of arrays
+      // iterate from negative n to positive n
+      // where n is size of board
+        // if hasMajorDCA(n) is true, return true
+        // else false
+      var size = this.get('n');
 
-        // * we will make a new array of arrays with
-        //   the size - 1 (so 2 if size of board is 3)
-        //   number of new columns that PRECEDE the
-        //   actual board's columns
-        //
-        // * we have to populate the new columns with
-        //   values of 0, so they don't affect our
-        //   result
+      for ( var i = -size + 1; i < size; i++ ){
+        console.log('i', i);
+        if ( this.hasMajorDiagonalConflictAt(i) ){
+          return true;
+        }
+      }
 
-      // check the new board for conflicts with previous fn above
-        // * can pass in our board array to our previous fn as
-        //   second argument? (and have that fn add the cols)
-        //
-        // * can pass in just the index, as above, but include
-        //   negative indices.
-
-      // return results of that check, as if it was for original board
+      return false;
     },
 
 
