@@ -30,27 +30,42 @@ window.countNRooksSolutions = function(n) {
   var board = new Board({n:n});
 
   var findSolution = function(row) {
-    for ( var j = 0; j < n; j++ ) {
-      // place the rook
-      board.attributes[row][j] = 1;
+    if ( row === n ) {
+      solutionCount++;
+      return solutionCount;
+    }
 
+    for ( var i = 0; i < n; i++ ) {
+      board.togglePiece(row, i);
       if ( !board.hasAnyRooksConflicts() ) {
-
-        if ( row === (n - 1) ) {  // no conflicts and on last row = solution
-          // we have a solution!
-          solutionCount++;
-          board.attributes[row][j] = 0; // and unset again to check next solution
-          return;
-        }
-        // keep doing that thing:
         findSolution(row + 1);
       }
-      // if conflict, take the rook back off
-      board.attributes[row][j] = 0; // and unset again to check next solution
-
+      board.togglePiece(row, i);
     }
-    return;
   };
+
+//   var findSolution = function(row) {
+//     for ( var j = 0; j < n; j++ ) {
+//       // place the rook
+//       board.attributes[row][j] = 1;
+
+//       if ( !board.hasAnyRooksConflicts() ) {
+
+//         if ( row === (n - 1) ) {  // no conflicts and on last row = solution
+//           // we have a solution!
+//           solutionCount++;
+//           board.attributes[row][j] = 0; // and unset again to check next solution
+//           return;
+//         }
+//         // keep doing that thing:
+//         findSolution(row + 1);
+//       }
+//       // if conflict, take the rook back off
+//       board.attributes[row][j] = 0; // and unset again to check next solution
+
+//     }
+//     return;
+//   };
 
   findSolution(0);
   console.log('>> Number of solutions for ' + n + ' rooks:', solutionCount + '\n');
